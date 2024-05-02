@@ -1,0 +1,114 @@
+MySQL Shell 8.0.36
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect mc-- root@localhost
+Creating a session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 11 (X protocol)
+Server version: 8.0.36 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:33060+ ssl  SQL > use tbd_3;
+Default schema set to `tbd_3`.
+Fetching global names, object names from `tbd_3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   |     | 0                 |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   |     | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0072 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert_actor();
+ERROR: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert_actor()' at line 1
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor_id(first_name, last_name) valure('Juan', 'Perez Jolote');
+ERROR: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valure('Juan', 'Perez Jolote')' at line 1
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor_id(first_name, last_name) value('Juan', 'Perez Jolote');
+ERROR: 1146: Table 'tbd_3.actor_id' doesn't exist
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor(first_name, last_name) value('Juan', 'Perez Jolote');
+Query OK, 1 row affected (0.0228 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select * from actor where actor_id = 204;
+Empty set (0.0019 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select max(actor_id) from actor,
+                                        -> ;
+ERROR: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select max(actor_id) from actor;
++---------------+
+| max(actor_id) |
++---------------+
+|           203 |
++---------------+
+1 row in set (0.0017 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select * from actor where actor_id = 203;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|      203 | Juan       | Perez Jolote | 2024-05-02 17:35:44 |
++----------+------------+--------------+---------------------+
+1 row in set (0.0018 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > create actores_2;
+ERROR: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'actores_2' at line 1
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > create table actores_2;
+ERROR: 4028: A table must have at least one visible column.
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > create table actores_2(id int auto_increment, first_name varchar(50), last_name varchar(50));
+ERROR: 1075: Incorrect table definition; there can be only one auto column and it must be defined as a key
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > delete from actor;
+Query OK, 203 rows affected (0.0561 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor(first_name, last_name) value('Juan', 'Perez Jolote');
+Query OK, 1 row affected (0.0121 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select max(actor_id) from actor;
++---------------+
+| max(actor_id) |
++---------------+
+|             1 |
++---------------+
+1 row in set (0.0012 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor(first_name, last_name) value('Felix', 'Perez Jolote');
+Query OK, 1 row affected (0.0306 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select max(actor_id) from actor;
++---------------+
+| max(actor_id) |
++---------------+
+|             2 |
++---------------+
+1 row in set (0.0013 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor(first_name, last_name) value('Sebastian', 'Perez Jolote');
+Query OK, 1 row affected (0.0312 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select max(actor_id) from actor;
++---------------+
+| max(actor_id) |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.0014 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select * from actro;
+ERROR: 1146: Table 'tbd_3.actro' doesn't exist
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select * from actor;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | Juan       | Perez Jolote | 2024-05-02 17:45:33 |
+|        2 | Felix      | Perez Jolote | 2024-05-02 17:46:06 |
+|        3 | Sebastian  | Perez Jolote | 2024-05-02 17:49:17 |
++----------+------------+--------------+---------------------+
+3 rows in set (0.0011 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > insert into actor(first_name, last_name) value('Jose', 'Perez Jolote');
+Query OK, 1 row affected (0.0319 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL > select * from actor;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | Juan       | Perez Jolote | 2024-05-02 17:45:33 |
+|        2 | Felix      | Perez Jolote | 2024-05-02 17:46:06 |
+|        3 | Sebastian  | Perez Jolote | 2024-05-02 17:49:17 |
+|        4 | Jose       | Perez Jolote | 2024-05-02 17:49:48 |
++----------+------------+--------------+---------------------+
+4 rows in set (0.0012 sec)
+ MySQL  localhost:33060+ ssl  tbd_3  SQL >
